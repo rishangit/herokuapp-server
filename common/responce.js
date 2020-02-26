@@ -4,10 +4,10 @@ class ResponseBase {
   constructor(res) {
     this.resObj = {};
     this.res = res;
-    this.res.header("Access-Control-Allow-Origin", "*");
-    this.res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    this.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    this.res.header("Access-Control-Allow-Credentials", true);
+    // this.res.header("Access-Control-Allow-Origin", "*");
+    // this.res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    // this.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    // this.res.header("Access-Control-Allow-Credentials", true);
     
   }
   sendError() { }

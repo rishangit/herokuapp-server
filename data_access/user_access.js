@@ -30,10 +30,6 @@ module.exports = {
                 else {
                     resolve(docs)
                 }
-
-                // await  db.count(queryObj).exec((err, count) => {
-                //     callBack(count)
-                // })
             });
         })
 

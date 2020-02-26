@@ -1,11 +1,7 @@
-
-
 const userAccess = require('../data_access/user_access')
 const SendResponse = require('../common/responce');
 
-console.log('user controller ')
 module.exports = {
-
     add: async (req, res) => {
         var sendResponse = new SendResponse(res);
         var user = req.body;
