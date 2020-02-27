@@ -20,6 +20,14 @@ module.exports = {
             sendResponse.sendSuccessList(docs);
         } catch (error) {
         }
+    },
+
+    new:(req, res)=>{
+        var sendResponse = new SendResponse(res);
+        const listeningController = require('./listening_controller');
+        listeningController.toall();
+        sendResponse.sendSuccessEmpty();
+        
     }
 
 }

@@ -3,6 +3,8 @@ const Enums = require('./enums');
 class ResponseBase {
   constructor(res) {
     this.resObj = {};
+    this.clents = [];
+    this.nests = [];
     this.res = res;
     // this.res.header("Access-Control-Allow-Origin", "*");
     // this.res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -16,6 +18,20 @@ class ResponseBase {
   sendSuccessEmpty() { }
   send() {
     this.res.send(this.resObj);
+  }
+
+  allclients(){
+    const clientId = Date.now();
+    const newClient = {
+      id: clientId,
+      res
+    };
+    this.clients.push(newClient);
+
+    req.on('close', () => {
+      console.log(`${clientId} Connection closed`);
+      this.clients = this.clients.filter(c => c.id !== clientId);
+    });
   }
 }
 
@@ -62,6 +78,9 @@ class SendResponse extends ResponseBase {
     this.resObj.typ = Enums.ResponseType.SESSION_EXPIRE;
     this.send();
   }
+
+
+  
 }
 
 module.exports = SendResponse
