@@ -1,12 +1,12 @@
-const userAccess = require('../data_access/user_access')
+const Access = require('../data_access/user_access');
 const SendResponse = require('../common/responce');
 
 module.exports = {
     add: async (req, res) => {
         var sendResponse = new SendResponse(res);
-        var user = req.body;
+        var data = req.body;
         try {
-            var docs = await userAccess.save(user).then();
+            var docs = await Access.save(data).then();
             sendResponse.sendSuccessObj(docs);
         } catch (error) {
         }
@@ -14,9 +14,9 @@ module.exports = {
 
     list: async (req, res) => {
         var sendResponse = new SendResponse(res);
-        var param = req.body;
+        var data = req.body;
         try {
-            var docs = await userAccess.list(param).then();
+            var docs = await Access.list(data).then();
             sendResponse.sendSuccessList(docs);
         } catch (error) {
         }
