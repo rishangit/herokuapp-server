@@ -10,11 +10,8 @@ module.exports = {
 
   nextnumber: (req, res) => {
     var sendResponse = new SendResponse(res);
-    CurrentIndex = CurrentIndex++;
-    console.log("CurrentIndex", CurrentIndex);
-    let number = NumberList[CurrentIndex];
-    console.log("number", number);
-    sendResponse.sendSuccessObj(number);
+
+    sendResponse.sendSuccessObj(1);
   },
 
   get: async (req, res) => {
@@ -28,6 +25,7 @@ module.exports = {
   },
 
   add: async (req, res) => {
+    console.log("number", 'add');
     var sendResponse = new SendResponse(res);
     var data = req.body;
     try {

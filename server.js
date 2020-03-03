@@ -19,24 +19,7 @@ var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
 app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
 
 
-
-
-
-
-app.use('/api/', api);
-
-// app.use('/api', (req, res)=>{
-
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     res.header("Access-Control-Allow-Credentials", true);
-
-//     const obj = [{id:'1', name:'rishan'}, {id:'2', name:'akshara'}]
-
-
-//     res.send(obj)
-// });
+ app.use('/api/', api);
 
 app.get('*', (req, res) => {
     
