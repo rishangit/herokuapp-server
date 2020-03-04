@@ -30,7 +30,7 @@ module.exports = {
         if (err) reject(err);
         else {
           if (doc == 1) {
-            resolve(doc);
+            resolve(data);
           }
         }
       });

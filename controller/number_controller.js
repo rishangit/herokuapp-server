@@ -18,14 +18,30 @@ module.exports = {
     var data = req.body;
     var sendResponse = new SendResponse(res);
     try {
-        var doc = await Access.get(data).then();
+      var doc = await Access.get({_id:'current'}).then();
+      sendResponse.sendSuccessObj(doc);
+    } catch (error) {}
+  },
+
+  next: async (req, res) => {
+    var data = req.body;
+    var sendResponse = new SendResponse(res);
+    try {
+      var savedDoc = await Access.get({_id:'current'}).then();
+      if(savedDoc){  
+        var updatetedDoc = {...savedDoc, number : savedDoc.number + 1}    
+        var doc = await Access.update(updatetedDoc).then();
         sendResponse.sendSuccessObj(doc);
-    } catch (error) {
-    }
+      }else{
+        var doc = await Access.save({_id:'current', number:0}).then();
+        sendResponse.sendSuccessObj(doc);
+      }
+      
+    } catch (error) {}
   },
 
   add: async (req, res) => {
-    console.log("number", 'add');
+    console.log("number", "add");
     var sendResponse = new SendResponse(res);
     var data = req.body;
     try {
@@ -38,8 +54,8 @@ module.exports = {
     var sendResponse = new SendResponse(res);
     var data = req.body;
     try {
-        var doc = await Access.update(data).then();
-        sendResponse.sendSuccessObj(doc);
-      } catch (error) {}
+      var doc = await Access.update(data).then();
+      sendResponse.sendSuccessObj(doc);
+    } catch (error) {}
   }
 };
