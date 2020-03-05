@@ -1,5 +1,6 @@
 const Access = require("../data_access/number_access");
 const SendResponse = require("../common/responce");
+const Listening = require("./listening_controller")
 
 module.exports = {
   current: (req, res) => {
@@ -32,9 +33,11 @@ module.exports = {
         var updatetedDoc = {...savedDoc, number : savedDoc.number + 1}    
         var doc = await Access.update(updatetedDoc).then();
         sendResponse.sendSuccessObj(doc);
+        Listening.toall(doc)
       }else{
         var doc = await Access.save({_id:'current', number:0}).then();
         sendResponse.sendSuccessObj(doc);
+        Listening.toall(doc)
       }
       
     } catch (error) {}
