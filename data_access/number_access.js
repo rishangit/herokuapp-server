@@ -5,56 +5,40 @@ const db = new Datastore({
   autoload: true
 });
 
+const save = data => {
+  return new Promise((resolve, reject) => {
+    db.insert(data, function(err, doc) {
+      if (err) reject(err);
+      else resolve(doc);
+    });
+  });
+};
+
+const get = data => {
+  return new Promise((resolve, reject) => {
+    db.findOne(data, (err, doc) => {
+      if (err) reject(err);
+      else resolve(doc);
+    });
+  });
+};
+
+const update = data => {
+  return new Promise((resolve, reject) => {
+    db.update({ _id: data._id }, { $set: data }, {}, (err, doc) => {
+      if (err) reject(err);
+      else {
+        if (doc == 1) {
+          resolve(data);
+        }
+      }
+    });
+  });
+};
+
+
+
 module.exports = {
-  save: data => {
-    return new Promise((resolve, reject) => {
-      db.insert(data, function(err, doc) {
-        if (err) reject(err);
-        else resolve(doc);
-      });
-    });
-  },
-
-  get: data => {
-    return new Promise((resolve, reject) => {
-      db.findOne(data, (err, doc) => {
-        if (err) reject(err);
-        else resolve(doc);
-      });
-    });
-  },
-
-  update: data => {
-    return new Promise((resolve, reject) => {
-      db.update({ _id: data._id }, { $set: data }, {}, (err, doc) => {
-        if (err) reject(err);
-        else {
-          if (doc == 1) {
-            resolve(data);
-          }
-        }
-      });
-    });
-  },
-
-
-  removeData: function (param) {
-    db.findOne(param.data, (err, member) => {
-        if (member) {
-            member.archive = true;
-            db.update({ _id: member._id }, { $set: member }, {}, (err, doc) => {
-                if (err)
-                    param.error(err);
-                else {
-                    if (doc == 1) {
-                        param.callBack(this.generateResult(member));
-                    }
-                }
-            });
-
-        }
-    })
-},
-
-
+  save,
+  get
 };

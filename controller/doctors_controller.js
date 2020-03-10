@@ -20,7 +20,18 @@ const list =  async (req, res) => {
     }
 }
 
+const remove =  async (req, res) => {
+  var sendResponse = new SendResponse(res);
+  var data = req.body;
+  try {
+      var docs = await Access.remove(data).then();
+      sendResponse.sendSuccessObj(docs);
+  } catch (error) {
+  }
+}
+
 module.exports = {
   add,
-  list
+  list,
+  remove
 };

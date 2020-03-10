@@ -35,7 +35,37 @@ const list = data => {
   });
 };
 
+const remove = data => {
+  return new Promise((resolve, reject) => {
+    db.remove(data, (err, doc) => {
+      if (err) reject(err);
+      else {
+        if (doc == 1) {
+          resolve(data);
+        }
+      }
+    });
+  });
+};
+
+// const removeData = data => {
+//   db.findOne(data, (err, doc) => {
+//     if (doc) {
+//       member.archive = true;
+//       db.update({ _id: member._id }, { $set: member }, {}, (err, doc) => {
+//         if (err) param.error(err);
+//         else {
+//           if (doc == 1) {
+//             param.callBack(this.generateResult(member));
+//           }
+//         }
+//       });
+//     }
+//   });
+// };
+
 module.exports = {
   save,
-  list
+  list,
+  remove
 };
