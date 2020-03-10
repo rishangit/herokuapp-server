@@ -40,5 +40,6 @@ const update = data => {
 
 module.exports = {
   save,
-  get
+  get,
+  update
 };
