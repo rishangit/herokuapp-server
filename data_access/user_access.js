@@ -20,6 +20,5 @@ const save = data => {
 
 
 module.exports = {
-  save,
-  list
+  save
 }
