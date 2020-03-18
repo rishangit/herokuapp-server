@@ -17,8 +17,21 @@ const save = data => {
   });
 };
 
+const get = data => {
+  return new Promise((resolve, reject) => {
+    db.findOne(data, (err, doc) => {
+      if (err) reject(err);
+      else{
+        resolve(doc);
+      } 
+    });
+  });
+};
+
+
 
 
 module.exports = {
-  save
+  save,
+  get
 }

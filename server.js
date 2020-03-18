@@ -3,7 +3,7 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const session = require('express-session')
 
 const app = express();
 app.use(bodyParser.json());
@@ -11,7 +11,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(cors());
 
+
+
+var hour = 36000000;
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: "secret",
+  secureProxy: true,
+  cookie: { expires: new Date(Date.now() + hour ) }
+}))
+
 const api = require('./api');
+
+
 
 var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
  
