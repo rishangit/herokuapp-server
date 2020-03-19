@@ -1,7 +1,7 @@
 const Access = require("../data_access/user_access");
 const SendResponse = require("../common/responce");
 const commonData = require("../common/common_data");
-const Enums = require('../common/enums');
+const Enums = require("../common/enums");
 const bcrypt = require("bcrypt");
 
 const add = async (req, res) => {
@@ -34,6 +34,27 @@ const list = async (req, res) => {
   } catch (error) {}
 };
 
+const login = async (req, res) => {
+  let sendResponse = new SendResponse(res);
+  let data = req.body;
+  let { mobile } = data;
+  try {
+    let doc = await Access.get({ mobile }).then();
+    console.log(doc)
+    if (doc) {
+      bcrypt.compare(data.password, doc.password, (err, res) => {
+        if (res) {
+          delete doc['password'];
+          req.session.user = doc;
+          sendResponse.sendSuccessObj(doc);
+        } else {
+          sendResponse.sendSuccessEmpty();
+        }
+      });
+    }
+  } catch (error) {}
+};
+
 const newHash = param =>
   new Promise((resolve, reject) => {
     bcrypt.hash(param, 10, function(err, hash) {
@@ -43,5 +64,6 @@ const newHash = param =>
 
 module.exports = {
   add,
-  list
+  list,
+  login
 };
