@@ -39,8 +39,7 @@ const login = async (req, res) => {
   let data = req.body;
   let { mobile } = data;
   try {
-    let doc = await Access.get({ mobile }).then();
-    console.log(doc)
+    let doc = await Access.get({ mobile}).then();
     if (doc) {
       bcrypt.compare(data.password, doc.password, (err, res) => {
         if (res) {
