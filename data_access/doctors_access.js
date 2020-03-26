@@ -5,6 +5,19 @@ const db = new Datastore({
   autoload: true
 });
 
+
+const get = data => {
+  return new Promise((resolve, reject) => {
+    db.findOne(data, (err, doc) => {
+      if (err) reject(err);
+      else{
+        resolve(doc);
+      } 
+    });
+  });
+};
+
+
 const save = data => {
   return new Promise((resolve, reject) => {
     db.insert(data, function(err, doc) {
@@ -67,5 +80,6 @@ const remove = data => {
 module.exports = {
   save,
   list,
-  remove
+  remove,
+  get
 };
