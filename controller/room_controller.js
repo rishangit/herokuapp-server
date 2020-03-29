@@ -1,4 +1,4 @@
-const Access = require("../data_access/doctors_access");
+const Access = require("../data_access/room_access");
 const SendResponse = require("../common/responce");
 const commonData = require("../common/common_data");
 

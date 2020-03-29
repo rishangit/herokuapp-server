@@ -1,6 +1,7 @@
 const Access = require("../data_access/number_access");
 const SendResponse = require("../common/responce");
 const Listening = require("./listening_controller");
+const commonData = require("../common/common_data");
 
 const next = async (req, res) => {
   var data = req.body;
@@ -9,11 +10,14 @@ const next = async (req, res) => {
     var savedDoc = await Access.get({ _id: "current" }).then();
     if (savedDoc) {
       var updatetedDoc = { ...savedDoc, number: savedDoc.number + 1 };
+      commonData.setData(updatetedDoc, null);
       var doc = await Access.update(updatetedDoc).then();
       sendResponse.sendSuccessObj(doc);
       Listening.toall(doc);
     } else {
-      var doc = await Access.save({ _id: "current", number: 0 }).then();
+      let newDoc = { _id: "current", number: 0 }
+      commonData.setData(newDoc, null);
+      var doc = await Access.save(newDoc).then();
       sendResponse.sendSuccessObj(doc);
       Listening.toall(doc);
     }

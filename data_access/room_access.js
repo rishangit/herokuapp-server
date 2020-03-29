@@ -1,9 +1,22 @@
 const constant = require("../common/const");
 const Datastore = require("nedb");
 const db = new Datastore({
-  filename: constant.dbpath + "queue.db",
+  filename: constant.dbpath + "room.db",
   autoload: true
 });
+
+
+const get = data => {
+  return new Promise((resolve, reject) => {
+    db.findOne(data, (err, doc) => {
+      if (err) reject(err);
+      else{
+        resolve(doc);
+      } 
+    });
+  });
+};
+
 
 const save = data => {
   return new Promise((resolve, reject) => {
@@ -39,19 +52,24 @@ const list = data => {
   });
 };
 
-const get = data => {
+
+const remove = data => {
   return new Promise((resolve, reject) => {
-    db.findOne(data, (err, doc) => {
+    db.remove(data, (err, doc) => {
       if (err) reject(err);
-      else{
-        resolve(doc);
-      } 
+      else {
+        if (doc == 1) {
+          resolve(data);
+        }
+      }
     });
   });
 };
 
+
 module.exports = {
-  list,
   save,
+  list,
+  remove,
   get
-}
+};

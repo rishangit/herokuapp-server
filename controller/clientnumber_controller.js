@@ -1,6 +1,7 @@
 const Access = require("../data_access/clientnumber_access");
 const SendResponse = require("../common/responce");
 const Listening = require("./listening_controller");
+const commonData = require("../common/common_data");
 
 const nextNumber = async (req, res) => {
   var data = req.body;
@@ -20,6 +21,7 @@ const nextNumber = async (req, res) => {
 const bookNumber = async (req, res) => {
   var sendResponse = new SendResponse(res);
   var data = req.body;
+  commonData.setData(data, null);
   try {
     var docs = await Access.save(data).then();
     sendResponse.sendSuccessObj(docs);

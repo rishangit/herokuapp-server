@@ -11,8 +11,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(cors());
 
-
-
 var hour = 36000000;
 app.use(session({
   resave: true,
@@ -24,18 +22,14 @@ app.use(session({
 
 const api = require('./api');
 
-
-
 var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
  
 // Don't redirect if the hostname is `localhost:port` or the route is `/insecure`
 app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
 
+app.use('/api', api);
 
- app.use('/api/', api);
-
-app.get('*', (req, res) => {
-    
+app.get('*', (req, res) => {   
     console.log('url not match')
 });
 

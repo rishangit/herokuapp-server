@@ -11,4 +11,9 @@ const UserErrorType = {
   EXISTING_USER: 1
 };
 
-module.exports = { ResponseType, UserErrorType };
+const QueueErrorType = {
+  CUSTOM: 0,
+  EXISTING_IN_QUEUE: 1
+};
+
+module.exports = { ResponseType, UserErrorType, QueueErrorType };
