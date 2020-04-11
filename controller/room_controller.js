@@ -17,7 +17,6 @@ const list =  async (req, res) => {
     var data = req.body;
     try {
         var docs = await Access.list(data).then();
-        console.log('rooms', docs)
         sendResponse.sendSuccessList(docs);
     } catch (error) {
     }

@@ -1,27 +1,27 @@
-const constant = require("../common/const");
-const Datastore = require("nedb");
+const constant = require('../common/const');
+const Datastore = require('nedb');
 const db = new Datastore({
-  filename: constant.dbpath + "queue.db",
-  autoload: true
+  filename: constant.dbpath + 'queue.db',
+  autoload: true,
 });
 
-const save = data => {
+const save = (data) => {
   return new Promise((resolve, reject) => {
-    db.insert(data, function(err, doc) {
+    db.insert(data, function (err, doc) {
       if (err) reject(err);
       else resolve(doc);
     });
   });
 };
 
-const list = data => {
+const list = (data) => {
   return new Promise((resolve, reject) => {
     query = {};
     sort = [];
     if (data.filters && data.filters.length > 0) {
       query = {
         ...query,
-        $and: [...data.filters]
+        $and: [...data.filters],
       };
     }
     if (data.sorts) {
@@ -39,13 +39,26 @@ const list = data => {
   });
 };
 
-const get = data => {
+const get = (data) => {
   return new Promise((resolve, reject) => {
     db.findOne(data, (err, doc) => {
       if (err) reject(err);
-      else{
+      else {
         resolve(doc);
-      } 
+      }
+    });
+  });
+};
+
+const remove = (data) => {
+  return new Promise((resolve, reject) => {
+    db.remove(data, (err, doc) => {
+      if (err) reject(err);
+      else {
+        if (doc == 1) {
+          resolve(data);
+        }
+      }
     });
   });
 };
@@ -53,5 +66,6 @@ const get = data => {
 module.exports = {
   list,
   save,
-  get
-}
+  get,
+  remove,
+};

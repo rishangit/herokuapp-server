@@ -42,7 +42,29 @@ const bookdetails = async (req, res) => {
   } catch (error) {}
 };
 
+const list =  async (req, res) => {
+  var sendResponse = new SendResponse(res);
+  var data = req.body;
+  try {
+      var docs = await Access.list(data).then();
+      sendResponse.sendSuccessList(docs);
+  } catch (error) {
+  }
+}
+
+const remove =  async (req, res) => {
+var sendResponse = new SendResponse(res);
+var data = req.body;
+try {
+    var docs = await Access.remove(data).then();
+    sendResponse.sendSuccessObj(docs);
+} catch (error) {
+}
+}
+
 module.exports = {
   bookdetails,
-  add
+  add,
+  list,
+  remove
 };
