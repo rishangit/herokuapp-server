@@ -3,17 +3,22 @@ const ResponseType = {
   SUCCESS_LIST: 1,
   SUCCESS_OBJ: 2,
   SUCCESS_EMPTY: 3,
-  SESSION_EXPIRE: 4
+  SESSION_EXPIRE: 4,
 };
 
 const UserErrorType = {
   CUSTOM: 0,
-  EXISTING_USER: 1
+  EXISTING_USER: 1,
 };
 
 const QueueErrorType = {
   CUSTOM: 0,
-  EXISTING_IN_QUEUE: 1
+  EXISTING_IN_QUEUE: 1,
 };
 
-module.exports = { ResponseType, UserErrorType, QueueErrorType };
+const Sort = {
+  ASD: 1,
+  DES: -1,
+};
+
+module.exports = { ResponseType, UserErrorType, QueueErrorType, Sort };

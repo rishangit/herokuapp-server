@@ -63,9 +63,24 @@ const remove = (data) => {
   });
 };
 
+const update = data => {
+  return new Promise((resolve, reject) => {
+    db.update({ _id: data._id }, { $set: data }, {}, (err, doc) => {
+      if (err) reject(err);
+      else {
+        if (doc == 1) {
+          resolve(data);
+        }
+      }
+    });
+  });
+};
+
+
 module.exports = {
   list,
   save,
   get,
   remove,
+  update
 };
