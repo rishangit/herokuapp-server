@@ -21,4 +21,15 @@ const Sort = {
   DES: -1,
 };
 
-module.exports = { ResponseType, UserErrorType, QueueErrorType, Sort };
+const ListeningFor = {
+  CUSTOM: 0,
+  CLINIC_UPDATE: 1,
+};
+
+module.exports = {
+  ResponseType,
+  UserErrorType,
+  QueueErrorType,
+  Sort,
+  ListeningFor,
+};

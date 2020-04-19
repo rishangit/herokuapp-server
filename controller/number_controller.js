@@ -9,7 +9,6 @@ const next = async (req, res) => {
   var data = req.body;
   var sendResponse = new SendResponse(res);
   try {
-    
     const { roomId, docId, queueId } = data;
 
     if (queueId) {
@@ -37,8 +36,8 @@ const next = async (req, res) => {
       } else {
         doc = await Access.update({ ...savedDoc, ...updatetedDoc }).then();
       }
+      sendToDisplay(doc);
       sendResponse.sendSuccessObj(doc);
-      //   Listening.toall(doc);
     } else {
       sendResponse.sendSuccessObj({});
     }
@@ -71,11 +70,19 @@ const getFromList = async ({ docId }) => {
   return first;
 };
 
-const updateCompletedQueue = async (queueId) => {
+const updateCompletedQueue = async queueId => {
   var doc = await QueueAccess.get({ _id: queueId }).then();
   doc = { ...doc, active: false };
   var updated = await QueueAccess.update(doc).then();
-  return updated
+  return updated;
+};
+
+const sendToDisplay = doc => {
+  Listening.sendFor({
+    for: Enums.ListeningFor.CLINIC_UPDATE,
+    from: doc.roomId,
+    obj: doc,
+  });
 };
 
 module.exports = {

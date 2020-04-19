@@ -4,7 +4,6 @@ class ResponseBase {
   constructor(res) {
     this.resObj = {};
     this.clents = [];
-    this.nests = [];
     this.res = res;
     // this.res.header("Access-Control-Allow-Origin", "*");
     // this.res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
