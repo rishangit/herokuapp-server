@@ -37,7 +37,7 @@ const timeOutCount = ({ clientId, clientFromFor }) => {
       client.res.send({ typ: 3 });
       removeClient({ clientId, clientFromFor });
     }
-  }, 36000 * 2);
+  }, 3600 * 4);
 };
 
 const toall = obj => {
