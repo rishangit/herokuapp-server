@@ -10,7 +10,6 @@ const next = async (req, res) => {
   var sendResponse = new SendResponse(res);
   try {
     const { roomId, docId, queueId } = data;
-
     if (queueId) {
       const updatequeue = await updateCompletedQueue(queueId);
     }

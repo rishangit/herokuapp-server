@@ -28,7 +28,6 @@ class ResponseBase {
     this.clients.push(newClient);
 
     req.on('close', () => {
-      console.log(`${clientId} Connection closed`);
       this.clients = this.clients.filter(c => c.id !== clientId);
     });
   }

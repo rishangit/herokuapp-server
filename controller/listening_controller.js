@@ -18,14 +18,9 @@ const request = (req, res) => {
 
   clients[clientFromFor].push(newClient);
   newClient.startTimeOut({ clientId, clientFromFor });
-  console.log('clients :', clients[clientFromFor].length);
   req.on('close', () => {
     removeClient({ clientId, clientFromFor });
   });
-};
-
-const timeOut = clientId => {
-  console.log('timeOut', clientId);
 };
 
 const timeOutCount = ({ clientId, clientFromFor }) => {
@@ -40,27 +35,17 @@ const timeOutCount = ({ clientId, clientFromFor }) => {
   }, 3600 * 4);
 };
 
-const toall = obj => {
-  clients.forEach(c => {
-    console.log('send request to all');
-    let doc = {};
-    if (obj) doc = { typ: 2, obj };
-    else doc = { typ: 3 };
-    c.res.send(doc);
-  });
-};
-
 const sendFor = data => {
   const clientFromFor = `${data.for}_${data.from}`;
-  console.log('sendFor', clientFromFor);
-  clients[clientFromFor].forEach(c => {
-    let doc = {};
-    if (data.obj) doc = { typ: 2, obj: data.obj };
-    else doc = { typ: 3 };
-    console.log('send ', c.id);
-    c.res.send(doc);
-    removeClient({ clientId: c.id, clientFromFor });
-  });
+  if (clients[clientFromFor]) {
+    clients[clientFromFor].forEach(c => {
+      let doc = {};
+      if (data.obj) doc = { typ: 2, obj: data.obj };
+      else doc = { typ: 3 };
+      c.res.send(doc);
+      removeClient({ clientId: c.id, clientFromFor });
+    });
+  }
 };
 
 const removeClient = ({ clientId, clientFromFor }) => {
@@ -70,6 +55,5 @@ const removeClient = ({ clientId, clientFromFor }) => {
 };
 module.exports = {
   request,
-  toall,
   sendFor,
 };
