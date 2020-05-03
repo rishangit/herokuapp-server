@@ -1,6 +1,7 @@
 const Access = require('../data_access/number_access');
 const SendResponse = require('../common/responce');
 const Listening = require('./listening_controller');
+const ClientListening = require('./clientlistening_controller');
 const commonData = require('../common/common_data');
 const QueueAccess = require('../data_access/queue_access');
 const Enums = require('../common/enums');
@@ -53,6 +54,15 @@ const get = async (req, res) => {
   } catch (error) {}
 };
 
+const list = async (req, res) => {
+  var sendResponse = new SendResponse(res);
+  var data = req.body;
+  try {
+    var docs = await Access.list(data).then();
+    sendResponse.sendSuccessList(docs);
+  } catch (error) {}
+};
+
 const getFromList = async ({ docId }) => {
   let obj = {
     filters: [{ active: true }],
@@ -82,9 +92,16 @@ const sendToDisplay = doc => {
     from: doc.roomId,
     obj: doc,
   });
+
+  ClientListening.sendFor({
+    for: Enums.ListeningFor.CLINIC_UPDATE,
+    from: 'CLIENT',
+    obj: doc,
+  });
 };
 
 module.exports = {
   get,
   next,
+  list
 };
