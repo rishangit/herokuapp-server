@@ -14,7 +14,6 @@ const request = (req, res) => {
   if (!clientListeners[clientFromFor]) {
     clientListeners[clientFromFor] = [];
   }
-
   clientListeners[clientFromFor].push(newClient);
   newClient.startTimeOut({ clientId, clientFromFor });
   req.on('close', () => {
